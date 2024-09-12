@@ -17,6 +17,10 @@ struct Args {
     /// The length of the dump starting from the offset
     length: Option<u64>,
 
+    #[arg(short, long)]
+    /// Use uppercase characters
+    uppercase: Option<bool>,
+
     input_file: PathBuf,
 }
 
@@ -25,7 +29,7 @@ struct DumpOptions {
     bytes_per_line: u64,
     start_offset: u64,
     dump_length: u64,
-    lowercase: bool,
+    uppercase: bool,
 }
 
 fn main() {
@@ -39,7 +43,7 @@ fn main() {
         bytes_per_line: 16,
         start_offset: if let Some(start) = args.start { start } else { 0 },
         dump_length: if let Some(length) = args.length { length } else { metadata.len() },
-        lowercase: false,
+        uppercase: true,
     };
 
     println!("{:?}", options);
@@ -69,10 +73,10 @@ fn make_line(data: &[u8], offset: u64, options: &DumpOptions) -> String {
     let mut chars = " ".to_string();
     let mut bytes_done = 0;
     for b in data {
-        let bs = if options.lowercase {
-            format!("{:02x} ", b)
-        } else {
+        let bs = if options.uppercase {
             format!("{:02X} ", b)
+        } else {
+            format!("{:02x} ", b)
         };
         line.push_str(&bs);
 
