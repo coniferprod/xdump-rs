@@ -39,12 +39,15 @@ fn main() {
 
     // TODO: Check that the start offset and/or dump length
     // are not negative or beyond the file size.
+
     let options = DumpOptions {
         bytes_per_line: 16,
         start_offset: if let Some(start) = args.start { start } else { 0 },
         dump_length: if let Some(length) = args.length { length } else { metadata.len() },
         uppercase: true,
     };
+
+    assert!(options.start_offset < metadata.len());
 
     println!("{:?}", options);
 
