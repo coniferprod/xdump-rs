@@ -1,7 +1,8 @@
 use std::{
     fs,
     io::Read,
-    path::PathBuf
+    path::PathBuf,
+    cmp::min,
 };
 
 use clap::Parser;
@@ -53,7 +54,7 @@ fn main() {
 
     if let Some(buffer) = read_file(args.input_file.to_str().expect("valid path")) {
         let start = options.start_offset as usize;
-        let end = start + options.dump_length as usize;
+        let end = min(start + options.dump_length as usize, metadata.len() as usize);
         dump(&buffer[start .. end], &options);
     }
 }
