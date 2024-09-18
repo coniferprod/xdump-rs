@@ -25,27 +25,52 @@ jobs:
       # uses: taiki-e/upload-rust-binary-action@3bbb07bb7f438d0fdf6ce5118bdf9e6e21c0b2a5
       uses: taiki-e/upload-rust-binary-action@v1.22.0
       with:
-        # Comma-separated list of binary names (non-extension portion of filename) to build and upload. Note that glob pattern is not supported yet.
+      # Comma-separated list of binary names (non-extension portion of filename) to build and upload. Note that glob pattern is not supported yet.
 
-      bin: 
-        # Archive name (non-extension portion of filename) to be uploaded (variables `$bin`, `$target`, `$tag`, and any string)
+      bin: $bin 
+      # Archive name (non-extension portion of filename) to be uploaded (variables `$bin`, `$target`, `$tag`, and any string)
       archive: # optional, default is $bin-$target
-        # Target name, default is host triple
+      # Target name, default is host triple
       target: # optional
-        # Comma-separated list of cargo build features to enable
+      # Comma-separated list of cargo build features to enable
       features: # optional
-        # Whether to disable cargo build default features
+      # Whether to disable cargo build default features
       no-default-features: # optional
-        # Alias for 'no-default-features'
+      # Alias for 'no-default-features'
       no_default_features: # optional, default is false
-        # Override cargo manifest path
+      # Override cargo manifest path
       manifest-path: # optional
-        # Alias for 'manifest-path'
+      # Alias for 'manifest-path'
       manifest_path: # optional
-        # On which platform to distribute the `.tar.gz` file (all, unix, windows, or none)
+      # On which platform to distribute the `.tar.gz` file (all, unix, windows, or none)
       tar: # optional, default is unix
-        # On which platform to distribute the `.zip` file (all, unix, windows, or none)
+      # On which platform to distribute the `.zip` file (all, unix, windows, or none)
       zip: # optional, default is windows
-        # Comma-separated list of additional files to be included to archive. Note that glob pattern is not supported yet.
+      # Comma-separated list of additional files to be included to archive. Note that glob pattern is not supported yet.
       include: # optional
-        # Comma-separated list of additional files to be uploaded separately. Note that glob pattern is not supported yet.
+      # Comma-separated list of additional files to be uploaded separately. Note that glob pattern is not supported yet.
+
+      asset: # optional
+      # Whether to create the leading directory in the archive or not
+      leading-dir: # optional
+      # Alias for 'leading-dir'
+      leading_dir: # optional, default is false
+      # Create extra leading directory(s) for binary file(s) specified by 'bin' option
+      bin-leading-dir: # optional
+      # Tool to build binaries (cargo, cross, or cargo-zigbuild)
+      build-tool: # optional
+      # Alias for 'build-tool'
+      build_tool: # optional
+      # Comma-separated list of algorithms to be used for checksum (sha256, sha512, sha1, or md5)
+      checksum: # optional
+      # GitHub token for creating GitHub Releases. If not set this option, the GITHUB_TOKEN environment variable will be used.
+      token: # optional
+      # Fully-formed tag ref for this release.
+      # If not set this option, the GITHUB_REF environment variable (automatically set by GitHub Actions) 
+      # will be used.
+
+      ref: # optional
+      # The cargo profile to build. This defaults to the release profile.
+      profile: # optional, default is release
+      # Build and compress binaries, but do not upload them.
+      # Note that some errors are downgraded to warnings in this mode.
